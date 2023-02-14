@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,11 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
     Route::get('/', function () {
         return view('admin.main');
     })->name('main');
+
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{id}/products', [CategoryController::class, 'products'])->name('categories.products');
 });
