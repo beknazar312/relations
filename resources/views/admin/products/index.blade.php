@@ -11,7 +11,7 @@
             <!-- CTA -->
             <a
                 class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-                href="https://github.com/estevanmaito/windmill-dashboard"
+                href="{{ route('admin.products.create') }}"
             >
                 <div class="flex items-center">
                     <svg
@@ -23,9 +23,8 @@
                             d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                         ></path>
                     </svg>
-                    <span>Оригинал этой верстки можете найти по ссылке</span>
                 </div>
-                <span>Перейти &RightArrow;</span>
+                <span>Добавить новый &RightArrow;</span>
             </a>
 
             <!-- With actions -->
@@ -61,7 +60,7 @@
                                         >
                                             <img
                                                 class="object-cover w-full h-full rounded-full"
-                                                src="{{ $product->image }}"
+                                                src="/{{ $product->image }}"
                                                 alt=""
                                                 loading="lazy"
                                             />
@@ -89,13 +88,16 @@
                         </span>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    6/10/2020
+                                    @foreach($product->tags as $tag)
+                                        {{ $tag->name }} <br>
+                                    @endforeach
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
-                                        <button
+                                        <a
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit"
+                                            href="{{ route('admin.products.edit', ['id' => $product->id]) }}"
                                         >
                                             <svg
                                                 class="w-5 h-5"
@@ -107,10 +109,11 @@
                                                     d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
                                                 ></path>
                                             </svg>
-                                        </button>
-                                        <button
+                                        </a>
+                                        <a
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Delete"
+                                            href="{{ route('admin.products.delete', ['id' => $product->id]) }}"
                                         >
                                             <svg
                                                 class="w-5 h-5"
@@ -124,7 +127,7 @@
                                                     clip-rule="evenodd"
                                                 ></path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
